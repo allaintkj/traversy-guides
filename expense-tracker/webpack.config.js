@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
     });
     const htmlPlugin = new HtmlWebPackPlugin({
         inject: true,
-        template: './src/index.html',
+        template: './client/index.html',
         filename: 'index.html'
     });
 
@@ -36,7 +36,7 @@ module.exports = (env, argv) => {
             stats: 'minimal'
         },
         devtool: devMode ? 'source-map' : '',
-        entry: './src/index.js',
+        entry: './client/index.js',
         optimization: {
             minimizer: [
                 new TerserPlugin(),
@@ -99,7 +99,7 @@ module.exports = (env, argv) => {
                 }]
             }, {
                 test: /\.(gif|png|jpe?g|svg|ico)$/i,
-                include: path.resolve(__dirname, 'src/img/'),
+                include: path.resolve(__dirname, 'client/img/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
                 use: [{
                     loader: 'file-loader',
@@ -109,7 +109,7 @@ module.exports = (env, argv) => {
                 }]
             }, {
                 test: /\.(woff(2)?|ttf|eot|svg)$/i,
-                include: path.resolve(__dirname, 'src/fonts/'),
+                include: path.resolve(__dirname, 'client/fonts/'),
                 exclude: path.resolve(__dirname, 'node_modules/'),
                 use: [{
                     loader: 'file-loader',
