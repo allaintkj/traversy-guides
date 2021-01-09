@@ -27,7 +27,7 @@ const History = () => {
                                 </div>
 
                                 <div className='column is-2 trash-icon has-text-centered'>
-                                    <img onClick={() => context.delTransaction(transaction._id)}
+                                    <img onClick={() => context.delTx(transaction._id)}
                                         src={trashIcon} />
                                 </div>
                             </div>
