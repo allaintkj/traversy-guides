@@ -9,17 +9,17 @@ const IncomeExpenses = () => {
     const expenses = amounts.reduce((expense, amount) => { return (amount < 0 ? expense + amount : expense); }, 0);
 
     return (
-        <div className='columns has-text-centered m-0'>
-            <div className='column card is-half'>
+        <div className='columns has-text-centered'>
+            <div className='column card m-1'>
                 <h1 className='subtitle is-uppercase'>
                     <span className='is-size-6'>income</span><br />
-                    <span className='has-text-success'>${income}</span>
+                    <span className='has-text-success has-text-weight-bold'>${income}</span>
                 </h1>
             </div>
-            <div className='column card is-half'>
+            <div className='column card m-1'>
                 <h1 className='subtitle is-uppercase'>
                     <span className='is-size-6'>expenses</span><br />
-                    <span className='has-text-danger'>${Math.abs(expenses)}</span>
+                    <span className='has-text-danger has-text-weight-bold'>${Math.abs(expenses)}</span>
                 </h1>
             </div>
         </div>

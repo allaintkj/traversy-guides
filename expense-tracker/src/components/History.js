@@ -18,16 +18,17 @@ const History = () => {
                         let amtClass = transaction.amount < 0 ? 'has-text-danger' : 'has-text-success';
 
                         return (
-                            <div className='card columns is-mobile level m-0 p-2'
+                            <div className='card columns is-mobile level m-1 p-0'
                                 key={`transaction-${index}-${transaction.label}-${transaction.amount}`}>
-                                <div className='column'>{transaction.label}</div>
+                                <div className='column is-5'>{transaction.label}</div>
 
-                                <div className={`column ${amtClass} has-text-right  `}>
+                                <div className={`column is-5 ${amtClass} has-text-right has-text-weight-bold`}>
                                     ${Math.abs(transaction.amount)}
                                 </div>
 
-                                <div className='column trash-icon has-text-centered'>
-                                    <img src={trashIcon} />
+                                <div className='column is-2 trash-icon has-text-centered'>
+                                    <img onClick={() => context.delTransaction(transaction._id)}
+                                        src={trashIcon} />
                                 </div>
                             </div>
                         );

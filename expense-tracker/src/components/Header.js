@@ -6,6 +6,8 @@ const Header = () => {
             <div className='container'>
                 <h1 className='title has-text-centered'>Expense Tracker</h1>
             </div>
+
+            <hr className='hr' />
         </section>
     );
 };
