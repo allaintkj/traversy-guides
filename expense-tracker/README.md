@@ -1,3 +1,6 @@
+# expense tracker
+Using app layout and some tips from Traversy Media's two-part build guide to build an expense tracker for the benefit of learning React's Context API, as well as build some portfolio experience with NodeJS Express.
+
 # functionality
 Webpack bundler with support for:
 - react and react-router
