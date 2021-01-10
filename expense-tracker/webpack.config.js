@@ -61,6 +61,7 @@ module.exports = (env, argv) => {
                 use: [{
                     loader: 'babel-loader',
                     options: {
+                        plugins: ['@babel/plugin-transform-runtime'],
                         presets: ['@babel/env', '@babel/react'],
                         minified: true,
                         comments: false,

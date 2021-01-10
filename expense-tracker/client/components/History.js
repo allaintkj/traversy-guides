@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { GlobalContext } from '../context/GlobalState';
 
@@ -6,6 +6,10 @@ import trashIcon from '../img/trash-solid.svg';
 
 const History = () => {
     const context = useContext(GlobalContext);
+
+    useEffect(() => {
+        context.getTx();
+    }, [context.transactions]);
 
     return (
         <div className='pt-5'>
