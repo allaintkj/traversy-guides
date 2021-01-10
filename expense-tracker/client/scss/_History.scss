@@ -1,0 +1,11 @@
+.trash-icon {
+    img {
+        cursor: pointer;
+        padding-top: 10%;
+        width: 15px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
