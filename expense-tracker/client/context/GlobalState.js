@@ -5,7 +5,7 @@ import AppReducer from './AppReducer';
 
 // initial
 const initialState = {
-    api: 'http://localhost:5050',
+    api: 'http://localhost:8080',
     transactions: [],
     error: null,
     loading: true
@@ -35,18 +35,42 @@ export const GlobalProvider = ({ children }) => {
         }
     }
 
-    function addTx(_tx) {
-        dispatch({
-            type: 'ADD_TX',
-            payload: _tx
-        });
+    async function addTx(_tx) {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        try {
+            const res = await axios.post(`${state.api}/api/v1/transactions`, _tx, config);
+
+            dispatch({
+                type: 'ADD_TX',
+                payload: res.data.data
+            });
+        } catch (err) {
+            dispatch({
+                type: 'TX_ERROR',
+                payload: err.response.data.error
+            });
+        }
     }
 
-    function delTx(_id) {
-        dispatch({
-            type: 'DEL_TX',
-            payload: _id
-        });
+    async function delTx(_id) {
+        try {
+            await axios.delete(`${state.api}/api/v1/transactions/${_id}`);
+
+            dispatch({
+                type: 'DEL_TX',
+                payload: _id
+            });
+        } catch (err) {
+            dispatch({
+                type: 'TX_ERROR',
+                payload: err.response.data.error
+            });
+        }
     }
 
     return (

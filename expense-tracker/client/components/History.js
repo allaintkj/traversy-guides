@@ -9,7 +9,7 @@ const History = () => {
 
     useEffect(() => {
         context.getTx();
-    }, [context.transactions]);
+    }, []);
 
     return (
         <div className='pt-5'>

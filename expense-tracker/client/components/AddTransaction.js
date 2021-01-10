@@ -45,7 +45,6 @@ const AddTransaction = () => {
                         event.preventDefault();
 
                         context.addTx({
-                            _id: Math.floor(Math.random() * 1000000000),
                             label: label,
                             amount: parseFloat(amount)
                         });
