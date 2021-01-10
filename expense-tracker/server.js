@@ -1,5 +1,9 @@
 const cors = require('cors');
 const express = require('express');
+const connect = require('./config/db');
+
+// attempt database connection
+connect();
 
 // config
 const PORT = process.env.PORT || 5050;
@@ -10,6 +14,7 @@ const transactions = require('./routes/transactions');
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
 /* ---------- TRANSACTIONS ROUTES ---------- */
 app.use('/api/v1/transactions', transactions);

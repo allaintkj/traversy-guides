@@ -5,7 +5,9 @@ const { addTransaction, deleteTransaction, getTransactions } = require('../contr
 
 router.route('/')
     .get(getTransactions)
-    .post(addTransaction)
+    .post(addTransaction);
+
+router.route('/:id')
     .delete(deleteTransaction);
 
 module.exports = router;
