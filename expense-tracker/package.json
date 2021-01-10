@@ -9,8 +9,7 @@
 	"scripts": {
 		"build": "rimraf dist && webpack --mode production",
 		"dev": "webpack-dev-server --mode development",
-		"serve": "node server.js",
-		"watch": "rimraf dist && webpack --mode production --watch"
+		"serve": "node server.js"
 	},
 	"author": "Tom Allain",
 	"license": "GPL-3.0",
@@ -32,6 +31,7 @@
 		"html-loader": "^0.5.5",
 		"html-webpack-plugin": "^3.2.0",
 		"mini-css-extract-plugin": "^0.5.0",
+		"mongoose": "^5.11.11",
 		"node-sass": "^4.13.0",
 		"optimize-css-assets-webpack-plugin": "^5.0.3",
 		"postcss": "^7.0.26",
