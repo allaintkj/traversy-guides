@@ -1,19 +1,20 @@
 import React from 'react';
 
+import Header from './Header';
+import Search from './Search';
+import CharGrid from './CharGrid';
+
 const App = () => {
     return (
-        <section className='hero'>
-            <div className='hero-body'>
-                <div className='container'>
-                    <h1 className='title'>
-                        Hero title
-                    </h1>
-                    <h2 className='subtitle'>
-                        Hero subtitle
-                    </h2>
-                </div>
-            </div>
-        </section>
+        <React.Fragment>
+            <Header />
+
+            <section className='container'>
+                <Search />
+
+                <CharGrid />
+            </section>
+        </React.Fragment>
     );
 };
 
