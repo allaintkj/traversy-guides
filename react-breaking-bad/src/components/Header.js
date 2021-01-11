@@ -1,16 +1,13 @@
 import React from 'react';
 
+import logo from '../img/logo.svg';
+
 const Header = () => {
     return (
         <section className='hero'>
             <div className='hero-body'>
-                <div className='container'>
-                    <h1 className='title'>
-                        Hero title
-                    </h1>
-                    <h2 className='subtitle'>
-                        Hero subtitle
-                    </h2>
+                <div className='container has-text-centered'>
+                    <img className='beakr-logo' src={logo} />
                 </div>
             </div>
         </section>

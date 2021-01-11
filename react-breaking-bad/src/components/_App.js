@@ -1,18 +1,27 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 import Header from './Header';
-import Search from './Search';
 import CharGrid from './CharGrid';
 
 const App = () => {
+    const [chars, setChars] = useState([]);
+
+    useEffect(() => {
+        const fetchChars = async() => {
+            const result = await axios('https://breakingbadapi.com/api/characters');
+            setChars(result.data);
+        };
+
+        fetchChars();
+    }, []);
+
     return (
         <React.Fragment>
             <Header />
 
             <section className='container'>
-                <Search />
-
-                <CharGrid />
+                <CharGrid characters={chars} />
             </section>
         </React.Fragment>
     );
