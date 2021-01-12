@@ -2,10 +2,12 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 import Header from './Header';
+import Search from './Search';
 import CharGrid from './CharGrid';
 
 const App = () => {
     const [chars, setChars] = useState([]);
+    const [filter, setFilter] = useState('');
 
     useEffect(() => {
         const fetchChars = async() => {
@@ -21,7 +23,9 @@ const App = () => {
             <Header />
 
             <section className='container'>
-                <CharGrid characters={chars} />
+                <Search setFilter={value => setFilter(value)} />
+
+                <CharGrid characters={chars} filter={filter} />
             </section>
         </React.Fragment>
     );
