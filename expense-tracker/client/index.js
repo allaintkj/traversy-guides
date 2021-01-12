@@ -6,6 +6,7 @@ import { GlobalProvider } from './context/GlobalState';
 
 import App from './components/_App';
 
+import '@babel/polyfill';
 import './style.scss';
 
 ReactDOM.render((
