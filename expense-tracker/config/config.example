@@ -1,0 +1,10 @@
+{
+    "env": "production",
+    "express": {
+        "host": "localhost",
+        "port": 8080
+    },
+    "mongo": {
+        "uri": "localhost"
+    }
+}
