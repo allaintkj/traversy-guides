@@ -1,3 +1,45 @@
 .beakr-logo {
     width: 150px;
 }
+
+.spinner {
+    bottom: 0;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-dual-ring:after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #4a4a4a;
+    border-color: #4a4a4a #fff #4a4a4a #fff;
+    animation: lds-dual-ring 1.2s ease infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
