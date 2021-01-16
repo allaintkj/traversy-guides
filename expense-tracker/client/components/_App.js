@@ -12,7 +12,7 @@ function App() {
         <div className='expenses'>
             <Header />
 
-            <section className='section'>
+            <section className='section pt-0'>
                 <div className='container'>
                     <div className='columns'>
                         <div className='column is-4 is-offset-4'>

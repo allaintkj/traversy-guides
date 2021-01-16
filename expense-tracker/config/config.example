@@ -5,6 +5,10 @@
         "port": 8080
     },
     "mongo": {
-        "uri": "localhost"
+        "uri": "mongodb://localhost:27017/expenseTracker"
+    },
+    "jwt": {
+        "expiry": 1200,
+        "secret": "mysecret"
     }
 }

@@ -5,7 +5,12 @@ import AppReducer from './AppReducer';
 
 // initial
 const initialState = {
-    api: 'http://localhost:8080',
+    api: 'http://localhost:5050',
+    auth: {
+        _id: null,
+        name: null,
+        token: null
+    },
     transactions: [],
     error: null,
     loading: true
@@ -29,7 +34,7 @@ export const GlobalProvider = ({ children }) => {
             });
         } catch (err) {
             dispatch({
-                type: 'TX_ERROR',
+                type: 'ERROR',
                 payload: err.response.data.error
             });
         }
@@ -51,7 +56,7 @@ export const GlobalProvider = ({ children }) => {
             });
         } catch (err) {
             dispatch({
-                type: 'TX_ERROR',
+                type: 'ERROR',
                 payload: err.response.data.error
             });
         }
@@ -67,20 +72,78 @@ export const GlobalProvider = ({ children }) => {
             });
         } catch (err) {
             dispatch({
-                type: 'TX_ERROR',
+                type: 'ERROR',
                 payload: err.response.data.error
+            });
+        }
+    }
+
+    async function addUser(user) {
+        const config = {
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        try {
+            const res = await axios.post(`${state.api}/api/v1/users/create`, user, config);
+
+            dispatch({
+                type: 'ADD_USER',
+                payload: res.data.data
+            });
+        } catch (err) {
+            dispatch({
+                type: 'ERROR',
+                payload: err.response.data.error
+            });
+        }
+    }
+
+    async function authUser(user) {
+        const config = {
+            headers: { 'Content-Type': 'application/json' }
+        };
+
+        try {
+            const res = await axios.post(`${state.api}/api/v1/users/auth`, user, config);
+
+            dispatch({
+                type: 'AUTH_USER',
+                payload: res.data.data
+            });
+        } catch (err) {
+            dispatch({
+                type: 'ERROR',
+                payload: err.response.data.error
+            });
+        }
+    }
+
+    async function deauthUser() {
+        try {
+            dispatch({
+                type: 'DEAUTH_USER',
+                payload: initialState.auth
+            });
+        } catch (err) {
+            dispatch({
+                type: 'ERROR',
+                payload: err
             });
         }
     }
 
     return (
         <GlobalContext.Provider value={{
+            auth: state.auth,
             error: state.error,
             loading: state.loading,
             transactions: state.transactions,
             addTx,
             delTx,
-            getTx
+            getTx,
+            addUser,
+            authUser,
+            deauthUser
         }}>
 
             {children}
