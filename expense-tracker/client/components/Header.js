@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
+import { withRouter } from 'react-router';
 
 import { GlobalContext } from '../context/GlobalState';
 
-const Header = () => {
+const Header = props => {
     const isAuthed = localStorage.getItem('token');
     const context = useContext(GlobalContext);
 
@@ -17,6 +18,9 @@ const Header = () => {
                     <button className='button is-danger'
                         onClick={event => {
                             event.preventDefault();
+                            localStorage.clear();
+                            context.deauthUser();
+                            props.history.push('/');
                         }}>
                         Log Out
                     </button>
@@ -40,4 +44,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default withRouter(Header);
