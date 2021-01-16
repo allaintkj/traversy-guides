@@ -45,6 +45,7 @@ const AddTransaction = () => {
                         event.preventDefault();
 
                         context.addTx({
+                            user: context.auth._id,
                             label: label,
                             amount: parseFloat(amount)
                         });

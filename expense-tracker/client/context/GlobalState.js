@@ -24,9 +24,9 @@ export const GlobalProvider = ({ children }) => {
     const [state, dispatch] = useReducer(AppReducer, initialState);
 
     // actions
-    async function getTx() {
+    async function getTx(_id) {
         try {
-            const res = await axios.get(`${state.api}/api/v1/transactions`);
+            const res = await axios.get(`${state.api}/api/v1/transactions/${_id}`);
 
             dispatch({
                 type: 'GET_TX',
