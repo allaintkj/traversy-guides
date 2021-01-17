@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { genToken } = require('../utils/genToken');
+const { genToken } = require('../utils/token');
 
 const User = require('../models/User');
 
@@ -43,8 +43,6 @@ exports.addUser = async(req, res) => {
             }
         });
     } catch (err) {
-        console.log(err);
-
         if (err.name === 'ValidationError') {
             const messages = Object.values(err.errors).map(field => field.message);
 
@@ -94,8 +92,6 @@ exports.authUser = async(req, res) => {
             error: 'Incorrect password.'
         });
     } catch (err) {
-        console.log(err);
-
         if (err.name === 'ValidationError') {
             const messages = Object.values(err.errors).map(field => field.message);
 

@@ -1,19 +1,11 @@
-import React, { useContext, useEffect } from 'react';
-
-import { GlobalContext } from '../context/GlobalState';
+import React from 'react';
 
 import Balance from '../components/Balance';
 import IncomeExpenses from '../components/IncomeExpenses';
 import History from '../components/History';
 import AddTransaction from '../components/AddTransaction';
 
-function Dashboard(props) {
-    const context = useContext(GlobalContext);
-
-    useEffect(() => {
-        if (!localStorage.getItem('token')) { props.history.push('/'); }
-    }, [history, context.auth]);
-
+function Dashboard() {
     return (
         <React.Fragment>
             <Balance />

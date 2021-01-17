@@ -3,9 +3,11 @@ import React, { createContext, useReducer } from 'react';
 
 import AppReducer from './AppReducer';
 
+import config from '../../config/config.json';
+
 // initial
 const initialState = {
-    api: 'http://localhost:5050',
+    api: config.api,
     auth: {
         _id: null,
         name: null,
@@ -26,13 +28,31 @@ export const GlobalProvider = ({ children }) => {
     // actions
     async function getTx(_id) {
         try {
-            const res = await axios.get(`${state.api}/api/v1/transactions/${_id}`);
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            };
+
+            const res = await axios.get(`${state.api}/api/v1/transactions/${_id}`, config);
 
             dispatch({
                 type: 'GET_TX',
                 payload: res.data.data
             });
         } catch (err) {
+            if (err.response.status == 401) {
+                localStorage.removeItem('isAuthed');
+                localStorage.removeItem('token');
+                localStorage.removeItem('_id');
+                localStorage.removeItem('name');
+
+                dispatch({
+                    type: 'DEAUTH_USER',
+                    payload: initialState.auth
+                });
+            }
+
             dispatch({
                 type: 'ERROR',
                 payload: err.response.data.error
@@ -43,6 +63,7 @@ export const GlobalProvider = ({ children }) => {
     async function addTx(_tx) {
         const config = {
             headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json'
             }
         };
@@ -55,6 +76,18 @@ export const GlobalProvider = ({ children }) => {
                 payload: res.data.data
             });
         } catch (err) {
+            if (err.response.status == 401) {
+                localStorage.removeItem('isAuthed');
+                localStorage.removeItem('token');
+                localStorage.removeItem('_id');
+                localStorage.removeItem('name');
+
+                dispatch({
+                    type: 'DEAUTH_USER',
+                    payload: initialState.auth
+                });
+            }
+
             dispatch({
                 type: 'ERROR',
                 payload: err.response.data.error
@@ -64,13 +97,31 @@ export const GlobalProvider = ({ children }) => {
 
     async function delTx(_id) {
         try {
-            await axios.delete(`${state.api}/api/v1/transactions/${_id}`);
+            const config = {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            };
+
+            await axios.delete(`${state.api}/api/v1/transactions/${_id}`, config);
 
             dispatch({
                 type: 'DEL_TX',
                 payload: _id
             });
         } catch (err) {
+            if (err.response.status == 401) {
+                localStorage.removeItem('isAuthed');
+                localStorage.removeItem('token');
+                localStorage.removeItem('_id');
+                localStorage.removeItem('name');
+
+                dispatch({
+                    type: 'DEAUTH_USER',
+                    payload: initialState.auth
+                });
+            }
+
             dispatch({
                 type: 'ERROR',
                 payload: err.response.data.error
@@ -86,11 +137,21 @@ export const GlobalProvider = ({ children }) => {
         try {
             const res = await axios.post(`${state.api}/api/v1/users/create`, user, config);
 
+            localStorage.setItem('isAuthed', true);
+            localStorage.setItem('token', res.data.data.token);
+            localStorage.setItem('_id', res.data.data._id);
+            localStorage.setItem('name', res.data.data.name);
+
             dispatch({
                 type: 'ADD_USER',
                 payload: res.data.data
             });
         } catch (err) {
+            localStorage.removeItem('isAuthed');
+            localStorage.removeItem('token');
+            localStorage.removeItem('_id');
+            localStorage.removeItem('name');
+
             dispatch({
                 type: 'ERROR',
                 payload: err.response.data.error
@@ -106,11 +167,26 @@ export const GlobalProvider = ({ children }) => {
         try {
             const res = await axios.post(`${state.api}/api/v1/users/auth`, user, config);
 
+            localStorage.setItem('isAuthed', true);
+            localStorage.setItem('token', res.data.data.token);
+            localStorage.setItem('_id', res.data.data._id);
+            localStorage.setItem('name', res.data.data.name);
+
             dispatch({
                 type: 'AUTH_USER',
                 payload: res.data.data
             });
+
+            dispatch({
+                type: 'ERROR',
+                payload: ''
+            });
         } catch (err) {
+            localStorage.removeItem('isAuthed');
+            localStorage.removeItem('token');
+            localStorage.removeItem('_id');
+            localStorage.removeItem('name');
+
             dispatch({
                 type: 'ERROR',
                 payload: err.response.data.error
@@ -119,6 +195,11 @@ export const GlobalProvider = ({ children }) => {
     }
 
     async function deauthUser() {
+        localStorage.removeItem('isAuthed');
+        localStorage.removeItem('token');
+        localStorage.removeItem('_id');
+        localStorage.removeItem('name');
+
         try {
             dispatch({
                 type: 'DEAUTH_USER',

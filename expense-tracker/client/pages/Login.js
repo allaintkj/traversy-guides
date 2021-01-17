@@ -12,18 +12,8 @@ function Login(props) {
     const isErrorPassword = isError && context.error.toLowerCase().includes('password');
 
     useEffect(() => {
-        if (context.auth.token !== null) {
-            localStorage.clear();
-            
-            localStorage.setItem('token', context.auth.token);
-            localStorage.setItem('_id', context.auth._id);
-            localStorage.setItem('name', context.auth.name);
-
-            props.history.push('/dashboard');
-        } else if (localStorage.getItem('token')) {
-            props.history.push('/dashboard');
-        }
-    }, [context.auth]);
+        if (localStorage.getItem('isAuthed')) { props.history.push('/dashboard'); }
+    }, [context.auth._id]);
 
     return (
         <div>

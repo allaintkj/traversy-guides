@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
-import { withRouter } from 'react-router';
+import { Redirect, withRouter } from 'react-router';
 
 import { GlobalContext } from '../context/GlobalState';
 
 const Header = props => {
-    const isAuthed = localStorage.getItem('token');
     const context = useContext(GlobalContext);
+    const isAuthed = localStorage.getItem('isAuthed');
 
-    useEffect(() => {}, [context.auth]);
+    useEffect(() => {}, [context.auth._id]);
 
     const userSection = () => {
         return (
@@ -35,7 +35,7 @@ const Header = props => {
                 <div className={`level ${isAuthed ? '' : 'is-justify-content-center'}`}>
                     <h1 className='title m-0'>Expense Tracker</h1>
 
-                    {isAuthed ? userSection() : null}
+                    {isAuthed ? userSection() : <Redirect to='/' />}
                 </div>
             </div>
 
