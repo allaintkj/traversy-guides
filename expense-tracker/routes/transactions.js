@@ -4,10 +4,10 @@ const router = express.Router();
 const { addTransaction, deleteTransaction, getTransactions } = require('../controllers/transactions');
 
 router.route('/')
-    .get(getTransactions)
     .post(addTransaction);
 
 router.route('/:id')
+    .get(getTransactions)
     .delete(deleteTransaction);
 
 module.exports = router;

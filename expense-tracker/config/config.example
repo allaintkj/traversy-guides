@@ -2,9 +2,14 @@
     "env": "production",
     "express": {
         "host": "localhost",
-        "port": 8080
+        "port": 5050
     },
+    "api": "http://localhost:5050",
     "mongo": {
-        "uri": "localhost"
+        "uri": "mongodb://localhost:27017/expenseTracker"
+    },
+    "jwt": {
+        "expiry": 1200,
+        "secret": "mysecret"
     }
 }

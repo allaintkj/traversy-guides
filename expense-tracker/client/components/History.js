@@ -8,7 +8,7 @@ const History = () => {
     const context = useContext(GlobalContext);
 
     useEffect(() => {
-        context.getTx();
+        context.getTx(localStorage.getItem('_id'));
     }, []);
 
     return (

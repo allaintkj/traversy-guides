@@ -45,8 +45,10 @@ const AddTransaction = () => {
                         event.preventDefault();
 
                         context.addTx({
+                            user: context.auth._id,
                             label: label,
-                            amount: parseFloat(amount)
+                            amount: parseFloat(amount),
+                            token: localStorage.getItem('token')
                         });
 
                         setLabel('');
