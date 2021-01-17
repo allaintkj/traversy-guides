@@ -41,6 +41,11 @@ export const GlobalProvider = ({ children }) => {
                 payload: res.data.data
             });
         } catch (err) {
+            dispatch({
+                type: 'ERROR',
+                payload: err.response.data.error
+            });
+
             if (err.response.status == 401) {
                 localStorage.removeItem('isAuthed');
                 localStorage.removeItem('token');
@@ -51,12 +56,9 @@ export const GlobalProvider = ({ children }) => {
                     type: 'DEAUTH_USER',
                     payload: initialState.auth
                 });
-            }
 
-            dispatch({
-                type: 'ERROR',
-                payload: err.response.data.error
-            });
+                return 401;
+            }
         }
     }
 
@@ -76,6 +78,11 @@ export const GlobalProvider = ({ children }) => {
                 payload: res.data.data
             });
         } catch (err) {
+            dispatch({
+                type: 'ERROR',
+                payload: err.response.data.error
+            });
+
             if (err.response.status == 401) {
                 localStorage.removeItem('isAuthed');
                 localStorage.removeItem('token');
@@ -86,12 +93,9 @@ export const GlobalProvider = ({ children }) => {
                     type: 'DEAUTH_USER',
                     payload: initialState.auth
                 });
-            }
 
-            dispatch({
-                type: 'ERROR',
-                payload: err.response.data.error
-            });
+                return 401;
+            }
         }
     }
 
