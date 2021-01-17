@@ -1,14 +1,20 @@
 import React, { useContext, useEffect } from 'react';
+import { withRouter } from 'react-router';
 
 import { GlobalContext } from '../context/GlobalState';
 
 import trashIcon from '../img/trash-solid.svg';
 
-const History = () => {
+const History = props => {
     const context = useContext(GlobalContext);
 
     useEffect(() => {
-        context.getTx(localStorage.getItem('_id'));
+        const getTx = async() => {
+            const res = await context.getTx(localStorage.getItem('_id'));
+            if (res === 401) { props.history.push('/'); }
+        };
+
+        getTx();
     }, []);
 
     return (
@@ -31,8 +37,14 @@ const History = () => {
                                 </div>
 
                                 <div className='column is-2 trash-icon has-text-centered'>
-                                    <img onClick={() => context.delTx(transaction._id)}
-                                        src={trashIcon} />
+                                    <img onClick={() => {
+                                        const delTx = async() => {
+                                            const res = await context.delTx(transaction._id);
+                                            if (res === 401) { props.history.push('/'); }
+                                        };
+
+                                        delTx();
+                                    }} src={trashIcon} />
                                 </div>
                             </div>
                         );
@@ -43,4 +55,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default withRouter(History);

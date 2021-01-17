@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
+import { withRouter } from 'react-router';
 
 import { GlobalContext } from '../context/GlobalState';
 
-const AddTransaction = () => {
+const AddTransaction = props => {
     const [label, setLabel] = useState('');
     const [amount, setAmount] = useState(0);
 
@@ -44,13 +45,18 @@ const AddTransaction = () => {
                     <button className='button is-link' onClick={event => {
                         event.preventDefault();
 
-                        context.addTx({
-                            user: context.auth._id,
-                            label: label,
-                            amount: parseFloat(amount),
-                            token: localStorage.getItem('token')
-                        });
+                        const addTx = async() => {
+                            const res = await context.addTx({
+                                user: context.auth._id,
+                                label: label,
+                                amount: parseFloat(amount),
+                                token: localStorage.getItem('token')
+                            });
 
+                            if (res === 401) { props.history.push('/'); }
+                        };
+
+                        addTx();
                         setLabel('');
                         setAmount(0);
                     }}>Submit</button>
@@ -60,4 +66,4 @@ const AddTransaction = () => {
     );
 };
 
-export default AddTransaction;
+export default withRouter(AddTransaction);

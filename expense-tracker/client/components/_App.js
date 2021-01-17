@@ -7,7 +7,7 @@ import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
 import CreateAccount from '../pages/CreateAccount';
 
-function App() {
+const App = () => {
     return (
         <div className='expenses'>
             <Header />
@@ -27,6 +27,6 @@ function App() {
             </section>
         </div>
     );
-}
+};
 
 export default App;
