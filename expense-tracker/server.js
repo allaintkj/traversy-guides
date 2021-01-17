@@ -1,4 +1,4 @@
-// const cors = require('cors');
+const cors = require('cors');
 const express = require('express');
 const path = require('path');
 const connect = require('./config/db');
@@ -13,16 +13,20 @@ const HOST = config.express.host || 'localhost';
 
 // routes
 const transactions = require('./routes/transactions');
+const users = require('./routes/users');
 
 // setup express
 const app = express();
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 /* ---------- TRANSACTIONS ROUTES ---------- */
 app.use('/api/v1/transactions', transactions);
 
-/* ------------- REACT ROUTES ------------- */
+/* -------------- USER ROUTES -------------- */
+app.use('/api/v1/users', users);
+
+/* ----------------- REACT ----------------- */
 if (config.env === 'production') {
     // serve static assets from build folder
     app.use(express.static('./dist'));

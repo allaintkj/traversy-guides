@@ -1,8 +1,20 @@
 const Transaction = require('../models/Transaction');
+const { verifyToken } = require('../utils/token');
 
 exports.getTransactions = async(req, res) => {
     try {
-        const transactions = await Transaction.find();
+        // verify JWT
+        // need to check payload against id param
+        const authorized = verifyToken(req.headers['authorization']);
+
+        if (!authorized) {
+            return res.status(401).json({
+                success: false,
+                error: 'Invalid token.'
+            });
+        }
+
+        const transactions = await Transaction.find({user: req.params.id});
 
         return res.status(200).json({
             success: true,
@@ -19,6 +31,17 @@ exports.getTransactions = async(req, res) => {
 
 exports.addTransaction = async(req, res) => {
     try {
+        // verify JWT
+        // need to check payload against req.body.user
+        const authorized = verifyToken(req.headers['authorization']);
+
+        if (!authorized) {
+            return res.status(401).json({
+                success: false,
+                error: 'Invalid token.'
+            });
+        }
+
         const transaction = await Transaction.create(req.body);
 
         return res.status(201).json({
@@ -44,6 +67,17 @@ exports.addTransaction = async(req, res) => {
 
 exports.deleteTransaction = async(req, res) => {
     try {
+        // verify JWT
+        // need to check payload against user in provided transaction id
+        const authorized = verifyToken(req.headers['authorization']);
+
+        if (!authorized) {
+            return res.status(401).json({
+                success: false,
+                error: 'Invalid token.'
+            });
+        }
+        
         const transaction = await Transaction.findById(req.params.id);
 
         if (!transaction) {

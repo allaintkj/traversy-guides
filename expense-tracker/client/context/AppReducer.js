@@ -1,5 +1,6 @@
 export default (state, action) => {
     switch (action.type) {
+        // transactions
         case 'GET_TX':
             return {
                 ...state,
@@ -15,11 +16,31 @@ export default (state, action) => {
                 ...state,
                 transactions: state.transactions.filter(transaction => transaction._id !== action.payload)
             };
-        case 'TX_ERROR':
+
+        // users
+        case 'ADD_USER':
+            return {
+                ...state,
+                auth: action.payload
+            };
+        case 'AUTH_USER':
+            return {
+                ...state,
+                auth: action.payload
+            };
+        case 'DEAUTH_USER':
+            return {
+                ...state,
+                auth: action.payload
+            };
+
+        // errors
+        case 'ERROR':
             return {
                 ...state,
                 error: action.payload
             };
+            
         default:
             return state;
     }

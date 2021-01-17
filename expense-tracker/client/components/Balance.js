@@ -8,8 +8,8 @@ const Balance = () => {
     const total = amounts.reduce((total, amount) => { return (total + amount); }, 0).toFixed(2);
 
     return (
-        <div className='columns'>
-            <div className='column card m-1 has-text-centered'>
+        <div className='columns m-0 p-1'>
+            <div className='column card has-text-centered m-1 p-2'>
                 <h1 className='subtitle'>Balance</h1>
                 <h1 className='title'>${total}</h1>
             </div>
