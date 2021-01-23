@@ -4,8 +4,8 @@ const { verifyToken } = require('../utils/token');
 exports.getTransactions = async(req, res) => {
     try {
         // verify JWT
-        // need to check payload against id param
-        const authorized = verifyToken(req.headers['authorization']);
+        // check payload against id param
+        const authorized = verifyToken(req.headers['authorization'], req.params.id);
 
         if (!authorized) {
             return res.status(401).json({
@@ -32,8 +32,8 @@ exports.getTransactions = async(req, res) => {
 exports.addTransaction = async(req, res) => {
     try {
         // verify JWT
-        // need to check payload against req.body.user
-        const authorized = verifyToken(req.headers['authorization']);
+        // check payload against req.body.user
+        const authorized = verifyToken(req.headers['authorization'], req.body.user);
 
         if (!authorized) {
             return res.status(401).json({
@@ -67,23 +67,23 @@ exports.addTransaction = async(req, res) => {
 
 exports.deleteTransaction = async(req, res) => {
     try {
-        // verify JWT
-        // need to check payload against user in provided transaction id
-        const authorized = verifyToken(req.headers['authorization']);
-
-        if (!authorized) {
-            return res.status(401).json({
-                success: false,
-                error: 'Invalid token.'
-            });
-        }
-        
         const transaction = await Transaction.findById(req.params.id);
 
         if (!transaction) {
             return res.status(404).json({
                 success: false,
                 error: 'No transaction found'
+            });
+        }
+
+        // verify JWT
+        // check payload against user in provided transaction id
+        const authorized = verifyToken(req.headers['authorization'], transaction.user);
+
+        if (!authorized) {
+            return res.status(401).json({
+                success: false,
+                error: 'Invalid token.'
             });
         }
 
