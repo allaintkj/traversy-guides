@@ -7,9 +7,17 @@ exports.genToken = _id => {
     });
 };
 
-exports.verifyToken = header => {
+exports.verifyToken = (header, _id) => {
     try {
+        // get token header
         const token = header.split(' ')[1];
+        // get base64 payload
+        const payload = token.split('.')[1];
+        // decode payload
+        const decodedPayload = JSON.parse(Buffer.from(payload, 'base64').toString());
+
+        // check payload against provided id
+        if (decodedPayload._id !== _id) { return null; }
         
         return jwt.verify(token, config.jwt.secret);
     } catch (err) {
