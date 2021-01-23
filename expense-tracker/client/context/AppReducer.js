@@ -31,7 +31,8 @@ export default (state, action) => {
         case 'DEAUTH_USER':
             return {
                 ...state,
-                auth: action.payload
+                auth: action.payload,
+                transactions: []
             };
 
         // errors
